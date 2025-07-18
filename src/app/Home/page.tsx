@@ -5,10 +5,15 @@ import { Search, ShoppingCart, User, Menu, X, Star, Heart, Book, TrendingUp, Awa
 // Assuming you have an About component in the same directory
 
 
-const BookstoreFrontend = () => {
+const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [cartCount, setCartCount] = useState(3);
+  const [book, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  
+ const [cartCount, setCartCount] = useState(3);
   const [featuredBooks, setFeaturedBooks] = useState([]);
   const [currentBookIndex, setCurrentBookIndex] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -101,6 +106,7 @@ const BookstoreFrontend = () => {
       badgeColor: "bg-yellow-500"
     }
   ];
+
     const booksPerSlide = 4;
   const totalSlides = Math.ceil(books.length / booksPerSlide);
 
@@ -124,7 +130,7 @@ const BookstoreFrontend = () => {
 
   useEffect(() => {
     setFeaturedBooks(sampleBooks);
-    
+    setFilteredBooks(sampleBooks);
     // Auto-rotate featured books
     const interval = setInterval(() => {
       setCurrentBookIndex((prev) => (prev + 1) % sampleBooks.length);
@@ -133,10 +139,9 @@ const BookstoreFrontend = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleSearch = () => {
-    console.log('Searching for:', searchQuery);
-    // Implement search functionality
-  };
+const handleSearch = () => {   
+    console.log('Searching for:', searchQuery);     // Implement search functionality 
+      };
 
   const stats = [
     { icon: Book, label: "Books Available", value: "50,000+" },
@@ -157,6 +162,8 @@ const BookstoreFrontend = () => {
   const handleClick = () => {
     router.push('/LoginForm');
   };
+
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white relative overflow-hidden">
@@ -476,4 +483,4 @@ const BookstoreFrontend = () => {
   
 };
 
-export default BookstoreFrontend;
+export default Home;
