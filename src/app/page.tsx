@@ -272,14 +272,7 @@ const MedicineMarketplace = () => {
   };
 
   // Authentication functions
-  interface FormData {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    confirmPassword: string;
-  }
+ 
 
   interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 
