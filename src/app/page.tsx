@@ -5,9 +5,12 @@ import { Search, ShoppingCart, User, Heart, Star, MapPin, Phone, Mail, Shield, T
 const MedicineMarketplace = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [cartItems, setCartItems] = useState([]);
+  interface CartItem extends Medicine {
+    quantity: number;
+  }
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showCart, setShowCart] = useState(false);
-  const [filteredMedicines, setFilteredMedicines] = useState([]);
+  const [filteredMedicines, setFilteredMedicines] = useState<Medicine[]>([]);
   
   // User authentication states
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -159,7 +162,29 @@ const MedicineMarketplace = () => {
   ];
 
   // Search and filter functionality
-  const searchMedicines = (medicines, term, category) => {
+  interface Medicine {
+    id: number;
+    name: string;
+    category: string;
+    price: string;
+    originalPrice: string;
+    image: string;
+    rating: number;
+    reviews: number;
+    availability: string;
+    description: string;
+    prescription: boolean;
+    rare: boolean;
+    keywords: string[];
+  }
+
+  type CategoryId = string;
+
+  const searchMedicines = (
+    medicines: Medicine[],
+    term: string,
+    category: CategoryId
+  ): Medicine[] => {
     let filtered = medicines;
 
     // Filter by category
@@ -965,6 +990,8 @@ const MedicineMarketplace = () => {
         </div>
       </section>
 
+
+
       {/* Services Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -998,6 +1025,8 @@ const MedicineMarketplace = () => {
           </div>
         </div>
       </section>
+
+
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
