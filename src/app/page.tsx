@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Search, ShoppingCart, User, Heart, Star, MapPin, Phone, Mail, Shield, Truck, Clock, ChevronRight, Filter, X, Plus, Minus, Eye, EyeOff, LogOut, Settings, UserCircle } from 'lucide-react';
+import { Search, ShoppingCart,  Heart, Star,  Phone,  Shield, Truck, Clock, ChevronRight,  X, Plus, Minus, Eye, EyeOff, LogOut, Settings, UserCircle } from 'lucide-react';
 
 const MedicineMarketplace = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -424,7 +424,7 @@ const MedicineMarketplace = () => {
                   ) : (
                     <div className="p-4 text-center text-gray-500">
                       <Search className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-                      <p>No medicines found for "{searchTerm}"</p>
+                      <p>No medicines found for {searchTerm}</p>
                       <p className="text-sm">Try searching for conditions, medicine names, or categories</p>
                     </div>
                   )}
