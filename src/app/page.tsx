@@ -638,7 +638,7 @@ const MedicineMarketplace = () => {
                     onClick={() => setShowCart(false)}
                     className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors"
                   >
-                    Continue Shopping
+                    Continue Shopping in
                   </button>
                 </div>
               </div>
