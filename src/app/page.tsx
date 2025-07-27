@@ -13,9 +13,17 @@ const MedicineMarketplace = () => {
   const [filteredMedicines, setFilteredMedicines] = useState<Medicine[]>([]);
   
   // User authentication states
+  interface User {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    avatar: string;
+  }
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   
@@ -220,7 +228,7 @@ const MedicineMarketplace = () => {
     setFilteredMedicines(featuredMedicines);
   }, []);
 
-  const addToCart = (medicine) => {
+  const addToCart = (medicine: Medicine) => {
     const existingItem = cartItems.find(item => item.id === medicine.id);
     
     if (existingItem) {
@@ -236,11 +244,11 @@ const MedicineMarketplace = () => {
     }
   };
 
-  const removeFromCart = (medicineId) => {
+  const removeFromCart = (medicineId: number) => {
     setCartItems(cartItems.filter(item => item.id !== medicineId));
   };
 
-  const updateQuantity = (medicineId, newQuantity) => {
+  const updateQuantity = (medicineId: number, newQuantity:number) => {
     if (newQuantity === 0) {
       removeFromCart(medicineId);
     } else {
@@ -264,18 +272,40 @@ const MedicineMarketplace = () => {
   };
 
   // Authentication functions
-  const handleInputChange = (e) => {
+  interface FormData {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    confirmPassword: string;
+  }
+
+  interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
+
+  const handleInputChange = (e: InputChangeEvent): void => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleLogin = (e) => {
+  interface LoginUserData {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    avatar: string;
+  }
+
+  interface LoginEvent extends React.FormEvent<HTMLFormElement> {}
+
+  const handleLogin = (e: LoginEvent): void => {
     e.preventDefault();
     // Simulate login - in real app, you'd call an API
     if (formData.email && formData.password) {
-      const userData = {
+      const userData: LoginUserData = {
         id: 1,
         email: formData.email,
         firstName: formData.firstName || 'John',
@@ -299,7 +329,18 @@ const MedicineMarketplace = () => {
     }
   };
 
-  const handleSignup = (e) => {
+  interface SignupEvent extends React.FormEvent<HTMLFormElement> {}
+
+  interface SignupUserData {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    avatar: string;
+  }
+
+  const handleSignup = (e: SignupEvent): void => {
     e.preventDefault();
     // Validate form
     if (!formData.email || !formData.password || !formData.firstName || !formData.lastName) {
@@ -316,7 +357,7 @@ const MedicineMarketplace = () => {
     }
 
     // Simulate signup - in real app, you'd call an API
-    const userData = {
+    const userData: SignupUserData = {
       id: Date.now(),
       email: formData.email,
       firstName: formData.firstName,
@@ -344,7 +385,7 @@ const MedicineMarketplace = () => {
     alert('Logged out successfully!');
   };
 
-  const openAuthModal = (mode) => {
+  const openAuthModal = (mode: string) => {
     setAuthMode(mode);
     setShowAuthModal(true);
     setFormData({
